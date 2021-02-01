@@ -2,9 +2,10 @@ import {
   fetchAddItem,
   fetchGetItem,
   fetchDeleteItem,
+  fetchEditItem,
 } from '../../service/fetchApi';
 import * as action from './contacts-action';
-import { errorContactsHandler } from '../../notification/ErrorNotification';
+import { errorNotification } from '../../notification/ErrorNotification';
 
 export const getAllItem = () => async dispatch => {
   dispatch(action.getAllItemRequest());
@@ -12,8 +13,8 @@ export const getAllItem = () => async dispatch => {
     const { data } = await fetchGetItem();
     dispatch(action.getAllIItemSuccess(data));
   } catch (error) {
-    errorContactsHandler(error);
-    dispatch(action.getAllIItemError(error));
+    errorNotification(error.message);
+    dispatch(action.getAllIItemError(error.message));
   }
 };
 
@@ -27,8 +28,8 @@ export const addItem = item => async dispatch => {
     const { data } = await fetchAddItem(contacts);
     dispatch(action.addItemSuccess(data));
   } catch (error) {
-    errorContactsHandler(error);
-    dispatch(action.addItemError(error));
+    errorNotification(error.message);
+    dispatch(action.addItemError(error.message));
   }
 };
 
@@ -38,7 +39,20 @@ export const deleteItem = item => async dispatch => {
     const response = await fetchDeleteItem(item.id);
     dispatch(action.deleteItemSuccess(item));
   } catch (error) {
-    errorContactsHandler(error);
-    dispatch(action.getAllIItemError(error));
+    errorNotification(error.message);
+    dispatch(action.getAllIItemError(error.message));
+  }
+};
+
+export const editItem = item => async dispatch => {
+  dispatch(action.editItemRequest());
+
+  try {
+    const { data } = await fetchEditItem(item);
+    console.log(data);
+    dispatch(action.editItemSuccess(data));
+  } catch (error) {
+    dispatch(action.editItemError(error.message));
+    console.log(error);
   }
 };

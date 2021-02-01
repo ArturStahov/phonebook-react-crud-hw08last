@@ -32,3 +32,11 @@ export const fetchGetItem = () => {
 export const fetchDeleteItem = id => {
   return axios.delete(`/contacts/${id}`);
 };
+
+export const fetchEditItem = ({ name, number, id }) => {
+  const update = {
+    name,
+    number,
+  };
+  return axios.patch(`/contacts/${id}`, update);
+};

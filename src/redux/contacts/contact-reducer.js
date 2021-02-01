@@ -7,6 +7,8 @@ const itemsReducer = createReducer([], {
   [action.addItemSuccess]: (state, { payload }) => [...state, payload],
   [action.deleteItemSuccess]: (state, { payload }) =>
     state.filter(item => item.id !== payload.id),
+  [action.editItemSuccess]: (state, { payload }) =>
+    state.map(item => (item.id === payload.id ? payload : item)),
 });
 
 const loadingReducer = createReducer(false, {
@@ -21,6 +23,14 @@ const loadingReducer = createReducer(false, {
   [action.deleteItemRequest]: () => true,
   [action.deleteItemSuccess]: () => false,
   [action.deleteItemError]: () => false,
+
+  [action.editItemRequest]: () => true,
+  [action.editItemSuccess]: () => false,
+  [action.editItemError]: () => false,
+});
+
+const itemEditReducer = createReducer(null, {
+  [action.addItemEdit]: (_, { payload }) => payload,
 });
 
 const filterReducer = createReducer('', {
@@ -31,10 +41,12 @@ const contactsErrorReducer = createReducer('', {
   [action.getAllIItemError]: (_, { payload }) => payload,
   [action.addItemError]: (_, { payload }) => payload,
   [action.deleteItemError]: (_, { payload }) => payload,
+  [action.editItemError]: (_, { payload }) => payload,
 });
 
 const contactsReducer = combineReducers({
   items: itemsReducer,
+  itemEdit: itemEditReducer,
   filter: filterReducer,
   loading: loadingReducer,
   error: contactsErrorReducer,

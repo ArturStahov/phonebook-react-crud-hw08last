@@ -7,6 +7,8 @@ import AuthorizationView from './view/AuthView/AuthorizationView';
 import RegistrationView from './view/AuthView/RegistrationView';
 import Footer from './components/Footer';
 import ContactsView from './view/ContactsView';
+import PublicRoute from './components/PublicRoute';
+import PrivateRoute from './components/PrivateRoute';
 
 export default function App() {
   return (
@@ -16,15 +18,18 @@ export default function App() {
       </Header>
       <Suspense fallback={<h2>...loading</h2>}>
         <Switch>
-          <Route exact path="/">
+          <PublicRoute exact path="/" redirectTo="/contacts" restricted>
             <AuthorizationView />
-          </Route>
-          <Route path="/signup">
+          </PublicRoute>
+
+          <PublicRoute exact path="/signup" restricted>
             <RegistrationView />
-          </Route>
-          <Route path="/contacts">
+          </PublicRoute>
+
+          <PrivateRoute path="/contacts" redirectTo="/">
             <ContactsView />
-          </Route>
+          </PrivateRoute>
+
           <Route>
             <h2>404</h2>
           </Route>

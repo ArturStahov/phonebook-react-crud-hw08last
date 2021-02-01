@@ -13,4 +13,10 @@ export const deleteItemRequest = createAction('contacts/deleteItemRequest');
 export const deleteItemSuccess = createAction('contacts/deleteItemSuccess');
 export const deleteItemError = createAction('contacts/deleteItemError');
 
+export const editItemRequest = createAction('contacts/editItemRequest');
+export const editItemSuccess = createAction('contacts/editItemSuccess');
+export const editItemError = createAction('contacts/editItemError');
+
+export const addItemEdit = createAction('contacts/addItemEdit');
+
 export const changeFilter = createAction('filter/change');

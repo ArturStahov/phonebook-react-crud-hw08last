@@ -1,6 +1,6 @@
 React base template
 
-### notebook
+### phonebook app
 
 use:
 
@@ -8,6 +8,11 @@ use:
 - redux
 - thunk
 - pnotify
-- json-server
 - axios
 - react-loader-spinner
+- react-router-dom
+- react-hook-form
+
+- data-base:https://goit-phonebook-api.herokuapp.com/docs/#/
+
+#### site-link:https://phonebook-app.netlify.app/

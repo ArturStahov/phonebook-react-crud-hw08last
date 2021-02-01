@@ -1,35 +1,32 @@
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 
-const TaskList = styled.ul`
-  max-width: 700px;
-  margin: 0 auto;
-`;
-const TaskItem = styled.li`
-  padding: 10px 10px 10px 10px;
+const List = styled.div`
   width: 100%;
+  max-height: 60vh;
+  padding: 10px 0px 10px;
+  overflow-y: scroll;
   display: flex;
-  justify-content: space-between;
-  background-color: grey;
-  border: 2px solid black;
-  border-radius: 0.5rem;
-  margin-bottom: 10px;
-  box-shadow: 10px 5px 5px grey;
-`;
-const TaskItemElements = styled.p`
-  &:not(:last-child) {
-    margin-right: 10px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #927cd7;
   }
 `;
-const Button = styled.button`
-  padding: 5px 10px;
-  max-width: 200px;
-  height: 30px;
-  background-color: goldenrod;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 0.8rem;
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-`;
-export { TaskList, TaskItem, TaskItemElements, Button };
+
+const useStyles = makeStyles({
+  root: {
+    width: '80%',
+    marginBottom: 20,
+  },
+});
+
+export { List, useStyles };

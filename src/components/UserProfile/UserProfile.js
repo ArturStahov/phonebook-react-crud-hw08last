@@ -16,10 +16,10 @@ export default function UserProfile() {
 
   return (
     <Wrapper>
-      <Text>e-mail: {user && user.email}</Text>
+      <Text>user: {user && user.email}</Text>
 
       <IconButton aria-label="delete" onClick={handlerLogOut}>
-        <FontAwesomeIcon icon={faSignOutAlt} size="2x" color="#ffffff" />
+        <FontAwesomeIcon icon={faSignOutAlt} size="1x" color="#ffffff" />
       </IconButton>
     </Wrapper>
   );
