@@ -36,7 +36,7 @@ export const addItem = item => async dispatch => {
 export const deleteItem = item => async dispatch => {
   dispatch(action.deleteItemRequest());
   try {
-    const response = await fetchDeleteItem(item.id);
+    await fetchDeleteItem(item.id);
     dispatch(action.deleteItemSuccess(item));
   } catch (error) {
     errorNotification(error.message);

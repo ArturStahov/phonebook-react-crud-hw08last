@@ -6,33 +6,28 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteItem } from 'redux/contacts/contacts-operation';
 import { addItemEdit } from 'redux/contacts/contacts-action';
 import { itemsArray } from 'redux/selectors/contactList-selector';
-import { filterValue } from 'redux/selectors/filter-selector';
 import { List, useStyles } from './StyledComponents';
-
-import { getDeleteLoading } from '../../redux/selectors/spinner-selector';
-
+import { getDeleteLoading } from 'redux/selectors/spinner-selector';
+import { filterContacts } from 'redux/selectors/contactList-selector';
 import { fetchImage } from 'service/fetchApi';
 import Spinner from 'components/Spinner';
+import { generateRandomInt } from 'utils/generateRandomInt';
 
 export default function ContactList() {
   const dummy = useRef();
   const contactsArray = useSelector(itemsArray);
-  const filter = useSelector(filterValue);
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const isDeleteLoading = useSelector(getDeleteLoading);
+  const arrFilters = useSelector(filterContacts);
 
   const [imageRef, setImageRef] = useState([]);
-
-  const generateRandomInt = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1)) + min;
 
   const getImage = async () => {
     const data = await fetchImage('landscape');
@@ -48,13 +43,6 @@ export default function ContactList() {
     dummy.current.scrollIntoView({ behavior: 'smooth' });
   }, [contactsArray]);
 
-  const filterContacts = items => {
-    return items.filter(item =>
-      item.name.toLowerCase().includes(filter.toLowerCase()),
-    );
-  };
-
-  const arrFilters = filterContacts(contactsArray);
   return (
     <List>
       {arrFilters.map(item => (
