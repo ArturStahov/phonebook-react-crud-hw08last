@@ -1,13 +1,17 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button } from '@material-ui/core';
 import { Form, useStyles } from './StyledComponent';
 import { LogIn } from 'redux/auth/auth-operation';
+import Spinner from '../../Spinner';
+import { getLoadingAuth } from 'redux/selectors/spinner-selector';
 
 export default function AuthorizationForms() {
   const { control, handleSubmit, reset } = useForm();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const isLoading = useSelector(getLoadingAuth);
+  console.log(isLoading);
 
   const onSubmit = data => {
     dispatch(LogIn(data));
@@ -61,7 +65,7 @@ export default function AuthorizationForms() {
         variant="contained"
         color="primary"
       >
-        Log In
+        {isLoading ? <Spinner /> : 'Log In'}
       </Button>
     </Form>
   );

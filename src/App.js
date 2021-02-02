@@ -1,6 +1,6 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
 import Header from './components/Header';
 import AppBar from './components/AppBar';
 import AuthorizationView from './view/AuthView/AuthorizationView';
@@ -9,8 +9,14 @@ import Footer from './components/Footer';
 import ContactsView from './view/ContactsView';
 import PublicRoute from './components/PublicRoute';
 import PrivateRoute from './components/PrivateRoute';
+import { getCurrentUser } from './redux/auth/auth-operation';
 
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, []);
+
   return (
     <>
       <Header>
@@ -39,3 +45,4 @@ export default function App() {
     </>
   );
 }
+

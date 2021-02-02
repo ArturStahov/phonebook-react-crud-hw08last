@@ -5,9 +5,11 @@ const userReducer = createReducer(null, {
   [action.signUpSuccess]: (_, { payload }) => payload.user,
   [action.logInSuccess]: (_, { payload }) => payload.user,
   [action.logOutSuccess]: () => null,
+  [action.getCurrentUserSuccess]: (_, { payload }) => payload,
 });
 
 const isLoggedInReducer = createReducer(false, {
+  [action.getCurrentUserSuccess]: () => true,
   [action.signUpSuccess]: () => true,
   [action.logInSuccess]: () => true,
   [action.logOutSuccess]: () => false,
@@ -16,13 +18,13 @@ const isLoggedInReducer = createReducer(false, {
 const tokenReducer = createReducer(null, {
   [action.signUpSuccess]: (_, { payload }) => payload.token,
   [action.logInSuccess]: (_, { payload }) => payload.token,
-  [action.logOutSuccess]: () => null,
 });
 
 const errorReducer = createReducer(null, {
   [action.signUpError]: (_, { payload }) => payload,
   [action.logInError]: (_, { payload }) => payload,
   [action.logOutError]: (_, { payload }) => payload,
+  [action.getCurrentUserError]: (_, { payload }) => payload,
 });
 const loaderReducer = createReducer(false, {
   [action.signUpRequest]: () => true,

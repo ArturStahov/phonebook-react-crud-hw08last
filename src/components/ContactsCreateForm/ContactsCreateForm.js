@@ -4,14 +4,17 @@ import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button } from '@material-ui/core';
 import { Form, useStyles } from './StyledComponents';
 import { addItem, editItem } from 'redux/contacts/contacts-operation';
-import { getEditItem } from '../../redux/selectors/editItem-selector';
-import { addItemEdit } from '../../redux/contacts/contacts-action';
+import { getEditItem } from 'redux/selectors/editItem-selector';
+import { addItemEdit } from 'redux/contacts/contacts-action';
+import { getLoadingValue } from 'redux/selectors/spinner-selector';
+import Spinner from '../Spinner';
 
 export default function ContactsCreateForm() {
   const itemEdit = useSelector(getEditItem);
   const { control, handleSubmit, reset, setValue } = useForm();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const isLoading = useSelector(getLoadingValue);
 
   useEffect(() => {
     if (itemEdit) {
@@ -36,6 +39,7 @@ export default function ContactsCreateForm() {
     dispatch(addItem(data));
   };
 
+  const buttonText = itemEdit ? 'edit' : 'create';
   return (
     <Form onSubmit={handleSubmit(createContact)}>
       <Controller
@@ -78,7 +82,7 @@ export default function ContactsCreateForm() {
         variant="contained"
         color="primary"
       >
-        {itemEdit ? 'edit' : 'create'}
+        {isLoading ? <Spinner /> : buttonText}
       </Button>
     </Form>
   );

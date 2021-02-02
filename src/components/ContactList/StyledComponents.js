@@ -27,6 +27,19 @@ const useStyles = makeStyles({
     width: '80%',
     marginBottom: 20,
   },
+  image: {
+    height: '150px',
+  },
+  textName: {
+    fontSize: '1.6rem',
+    fontWeight: 600,
+    color: '#6A48D7	',
+  },
+  textNumber: {
+    fontSize: '1.6rem',
+    fontWeight: 400,
+    color: '#8B7AC3',
+  },
 });
 
 export { List, useStyles };

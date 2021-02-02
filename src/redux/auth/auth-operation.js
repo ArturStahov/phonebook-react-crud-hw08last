@@ -1,6 +1,11 @@
 import * as action from './auth-actions';
 import axios from 'axios';
-import { fetchLogIn, fetchSignUp, fetchLogOut } from 'service/fetchApi';
+import {
+  fetchLogIn,
+  fetchSignUp,
+  fetchLogOut,
+  fetchGetCurrentUser,
+} from 'service/fetchApi';
 
 const token = {
   set(token) {
@@ -47,5 +52,25 @@ export const logOut = () => async dispatch => {
   } catch (error) {
     console.log(error);
     dispatch(action.logOutError(error.message));
+  }
+};
+
+export const getCurrentUser = () => async (dispatch, getState) => {
+  dispatch(action.getCurrentUserRequest());
+
+  const state = getState();
+  const persistedToken = state.auth.token;
+  console.log('persistedToken', persistedToken);
+  if (persistedToken === null) {
+    console.log('Токена нет, уходим из getCurrentUser');
+    return;
+  }
+  token.set(persistedToken);
+  try {
+    const { data } = await fetchGetCurrentUser();
+    console.log('data current user', data);
+    dispatch(action.getCurrentUserSuccess(data));
+  } catch (error) {
+    console.log(error);
   }
 };

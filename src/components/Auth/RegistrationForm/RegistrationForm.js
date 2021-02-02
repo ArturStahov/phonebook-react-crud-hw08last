@@ -1,14 +1,17 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button } from '@material-ui/core';
 import { Form, useStyles } from './StyledComponent';
-import * as notification from '../../../notification/ErrorNotification';
-import { signUp } from '../../../redux/auth/auth-operation';
+import * as notification from 'notification/ErrorNotification';
+import { signUp } from 'redux/auth/auth-operation';
+import Spinner from '../../Spinner';
+import { getLoadingAuth } from 'redux/selectors/spinner-selector';
 
 export default function RegistrationForms() {
   const { control, handleSubmit, reset } = useForm();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const isLoading = useSelector(getLoadingAuth);
 
   const onSubmit = ({ password, confirmPass, email, firstName, lastName }) => {
     if (password !== confirmPass) {
@@ -133,7 +136,7 @@ export default function RegistrationForms() {
         variant="contained"
         color="secondary"
       >
-        Sign Up
+        {isLoading ? <Spinner /> : 'Sign Up'}
       </Button>
     </Form>
   );

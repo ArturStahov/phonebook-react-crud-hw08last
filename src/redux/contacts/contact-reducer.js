@@ -20,13 +20,15 @@ const loadingReducer = createReducer(false, {
   [action.addItemSuccess]: () => false,
   [action.addItemError]: () => false,
 
-  [action.deleteItemRequest]: () => true,
-  [action.deleteItemSuccess]: () => false,
-  [action.deleteItemError]: () => false,
-
   [action.editItemRequest]: () => true,
   [action.editItemSuccess]: () => false,
   [action.editItemError]: () => false,
+});
+
+const loadingDelete = createReducer(false, {
+  [action.deleteItemRequest]: () => true,
+  [action.deleteItemSuccess]: () => false,
+  [action.deleteItemError]: () => false,
 });
 
 const itemEditReducer = createReducer(null, {
@@ -49,6 +51,7 @@ const contactsReducer = combineReducers({
   itemEdit: itemEditReducer,
   filter: filterReducer,
   loading: loadingReducer,
+  deleteLoading: loadingDelete,
   error: contactsErrorReducer,
 });
 
